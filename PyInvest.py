@@ -37,22 +37,32 @@ taxa_poup = 0.005
 montante_poup = capital * (1 + taxa_poup) ** meses
 
 #FII - Simulações
-variacao =  random.uniform(-3, 3) 
-variacao2 =  random.uniform(-3, 3) 
-variacao3 =  random.uniform(-3, 3) 
-variacao4 =  random.uniform(-3, 3) 
-variacao5 =  random.uniform(-3, 3) 
+taxa_fii = capital * math.pow(1 + taxa_fii, meses) + aporte * meses
+
+variacao =  random.uniform(-3, 3)/100 
+
+variacao2 =  random.uniform(-3, 3)/100
+
+variacao3 =  random.uniform(-3, 3)/100
+
+variacao4 =  random.uniform(-3, 3)/100
+
+variacao5 =  random.uniform(-3, 3)/100
+
 fii1 = capital * (1 + variacao)
 fii2 = capital * (1 + variacao2)
 fii3 = capital * (1 + variacao3)
 fii4 = capital * (1 + variacao4)
 fii5 = capital * (1 + variacao5)
 
+
 #Formação Mónetaria
-media = statistics.mean([fii1, fii2, fii3, fii4, fii5])
-desvio_padrao = statistics.stdev([fii1, fii2, fii3, fii4, fii5])
-valores = [fii1, fii2, fii3, fii4, fii5]
-mediana = statistics.median(valores)
+fii_valores = [fii1, fii2, fii3, fii4, fii5]
+
+fii_media = statistics.mean(fii_valores)
+fii_mediana = statistics.median(fii_valores)
+fii_desvio = statistics.stdev(fii_valores)
+
 
 #Data Resgate
 data_compra = datetime.datetime.strptime(input('Data de compra (dd/mm/yyyy): '), '%d/%m/%Y')
@@ -73,11 +83,11 @@ print("LCI/LCA:", "█" * int(montante_lci / 1000))
 print(f'Poupança: R$ {montante_poup:.2f}') 
 print("Poupança:", "█" * int(montante_poup / 1000))
 
-print(f'FII: R$ {media:.2f}') 
-print("FII:", "█" * int(media / 1000))
+print(f'FII: R$ {fii_media:.2f}') 
+print("FII:", "█" * int(fii_media / 1000))
 
-print(f'Mediana FII R$ {mediana:.2f}')
-print(f'Desvio Padrão FII: {desvio_padrao:.2f}')
+print(f'Mediana FII R$ {fii_mediana:.2f}')
+print(f'Desvio Padrão FII: {fii_desvio:.2f}')
 
-meta_batida = mediana >= Meta
+meta_batida = fii_mediana >= Meta
 print(f"Meta batida: {meta_batida}")
